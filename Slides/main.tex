@@ -1,0 +1,73 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{subfiles}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{listings}
+
+\definecolor{DarkBlue}{HTML}{1B3A6B}
+\definecolor{MidBlue}{HTML}{2E6DA4}
+\definecolor{AlertRed}{HTML}{C0392B}
+\definecolor{LightGray}{HTML}{F5F5F5}
+
+\setbeamercolor{frametitle}{bg=DarkBlue,fg=white}
+\setbeamercolor{progress bar}{fg=MidBlue}
+\setbeamercolor{alerted text}{fg=AlertRed}
+% Highlighted definition box (theory frames): blue title bar, grey body.
+\newenvironment{defbox}[1]{%
+  \setbeamercolor{block title}{fg=white,bg=DarkBlue}%
+  \setbeamercolor{block body}{fg=black,bg=LightGray}%
+  \begin{block}{Definition\enspace #1}}{\end{block}}
+% Reading box (results frames): how to read a number in one sentence.
+\newenvironment{readbox}{%
+  \setbeamercolor{block title}{fg=white,bg=MidBlue}%
+  \setbeamercolor{block body}{fg=black,bg=LightGray}%
+  \begin{block}{Reading}}{\end{block}}
+
+\title{Modern Difference-in-Differences and Synthetic Control}
+\author{Daniel Aparicio-P\'erez\\[4pt]
+  \small Universidad de Valencia}
+\date{2026}
+
+% Recap and closing frames, defined as macros so they can be called from
+% inside a subfile (the dCH checkpoint recap sits in the middle of Block 2).
+\input{Recaps}
+
+\begin{document}
+
+\maketitle
+
+% ══════════════════════════════════════════════════════════════════════════
+% Block 0: TWFE and why it fails
+% ══════════════════════════════════════════════════════════════════════════
+\subfile{Block0_TWFE}
+
+% ══════════════════════════════════════════════════════════════════════════
+% Block 1: Callaway & Sant'Anna
+% ══════════════════════════════════════════════════════════════════════════
+\subfile{Block1_CS}
+
+% ══════════════════════════════════════════════════════════════════════════
+% Block 2: de Chaisemartin & D'Haultfœuille, then continuous treatment
+% ══════════════════════════════════════════════════════════════════════════
+% Block 2 carries a checkpoint recap inside it, after Case 4.
+\subfile{Block2_dCH}
+
+% The continuous-treatment module (Callaway, Goodman-Bacon & Sant'Anna).
+\subfile{Block2b_contdid}
+
+% ══════════════════════════════════════════════════════════════════════════
+% Block 3: few treated units, synthetic control and SDID
+% ══════════════════════════════════════════════════════════════════════════
+\recapbeforescm
+
+\subfile{Block3_SCM}
+
+% ══════════════════════════════════════════════════════════════════════════
+% Closing
+% ══════════════════════════════════════════════════════════════════════════
+\closingframe
+
+\end{document}

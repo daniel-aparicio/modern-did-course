@@ -1,0 +1,21 @@
+# LaTeX auxiliaries
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.run.xml
+*-blx.bib
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Local renders used for visual checking
+preview/
+
+# Audit working documents, not part of the public deck
+audit/

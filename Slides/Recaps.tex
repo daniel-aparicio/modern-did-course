@@ -1,0 +1,105 @@
+% ══════════════════════════════════════════════════════════════════════════
+% Recap frames. Called as checkpoints between blocks, and
+% the closing frame at the very end. Kept in one file so the wording of the
+% recaps can be kept consistent.
+% ══════════════════════════════════════════════════════════════════════════
+
+% ── Checkpoint after the count cases ─────────────────────────────────────
+\newcommand{\recapdch}{%
+\begin{frame}{dCH So Far, in Four Lines}
+
+  \begin{enumerate}
+    \setlength{\itemsep}{7pt}
+    \item \textbf{Switchers and stayers.} Each effect compares groups whose
+      treatment changes at $F_g$ with groups that held the \emph{same}
+      period-one treatment and had not yet moved.
+    \item \textbf{Effect$_\ell$ and Placebo$_\ell$.} The event study reads
+      forward from the switch; the placebos read backward and are zero under
+      parallel trends and no anticipation.
+    \item \textbf{Normalization.} With a non-binary treatment, \texttt{normalized}
+      turns the effect into an effect \emph{per dose-period accumulated up to $\ell$}, and
+      \texttt{normalized\_weights} shows how much of it comes from the current
+      treatment and how much from its lags.
+    \item \textbf{Two count cases.} Favara \& Imbs and Gentzkow et al.: the same
+      command, clean placebos in both.
+  \end{enumerate}
+
+  \medskip
+  Next: designs where the placebos \emph{fail}, treatments that arrive in
+  sequence, and treatments that are a dose rather than a switch.
+
+\end{frame}%
+}
+
+% ── Checkpoint before synthetic control ──────────────────────────────────
+\newcommand{\recapbeforescm}{%
+\begin{frame}{Where We Have Got To}
+
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{de Chaisemartin \& D'Haultf\oe{}uille}
+        \begin{itemize}\small
+          \item The control group is a set of \textbf{stayers with the same
+            baseline treatment}.
+          \item Identification comes from \textbf{many units switching at
+            different dates}.
+          \item Parallel trends is imposed on the \textbf{status-quo} outcome,
+            and the placebos test it.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{What changes now}
+        \begin{itemize}\small
+          \item \textbf{One} treated unit, or a handful.
+          \item No cohorts, no group-time effects, no asymptotics in the
+            number of treated units.
+          \item The control group has to be \textbf{built}, and its credential
+            is the fit before treatment.
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+
+  \medskip
+  The question stays the same throughout: \textbf{who is the control, and what
+  exactly is being compared?}
+
+\end{frame}%
+}
+
+% ── Closing frame of the course ──────────────────────────────────────────
+\newcommand{\closingframe}{%
+\begin{frame}{Who Is the Control: Five Methods}
+
+  \begin{center}
+  \footnotesize
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{@{}p{2.9cm}p{4.5cm}p{4.6cm}@{}}
+    \toprule
+    \textbf{Method} & \textbf{Who is the control} & \textbf{What you must defend} \\
+    \midrule
+    dCH & Stayers with the \emph{same} period-one treatment
+        & Parallel trends on the status-quo outcome; no crossing \\
+    dCH \texttt{continuous()} & No two groups share a baseline, so the
+        status-quo trend is modelled as a polynomial in it
+        & The order of that polynomial \\
+    Callaway, Goodman-Bacon \& Sant'Anna & Units with $D=0$, dose by dose
+        & Parallel trends for levels; \emph{strong} parallel trends before you
+          read any slope \\
+    Synthetic control & A convex combination of donors that reproduces the
+        pre-period
+        & Fit before treatment, and a donor pool that can produce it \\
+    Synthetic DiD & The same, reweighted over units \emph{and} periods
+        & The same, with inference that suits the number of treated units \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \medskip
+  \footnotesize No estimator removes the need to say which comparison you are
+  making. Each of these makes the comparison explicit, which is what lets a
+  reader disagree with it.
+
+\end{frame}%
+}

@@ -53,10 +53,10 @@
   \end{columns}
 
   \medskip
-  \textbf{Key assumption:} \alert{parallel trends} --- absent treatment, both
+  \textbf{Key assumption:} \alert{parallel trends}: absent treatment, both
   groups would have moved \emph{in parallel}. Levels may differ; only the
   \emph{slopes} must match. This is a claim about a \emph{counterfactual},
-  so in a 2$\times$2 you cannot test it --- you assume it.
+  so in a 2$\times$2 you cannot test it, only assume it.
 
 \end{frame}
 
@@ -70,7 +70,7 @@
   \end{equation*}
 
   With a panel of many units and periods, researchers run the natural
-  generalisation --- \alert{two-way fixed effects}:
+  generalisation, \alert{two-way fixed effects}:
   \begin{equation*}
     Y_{it} = \alpha_i + \lambda_t + \beta\,D_{it} + \varepsilon_{it}
     \qquad\text{($\alpha_i$: unit FE, \ \ $\lambda_t$: time FE)}
@@ -92,7 +92,7 @@
 \end{frame}
 
 % ── Frame 3: When is TWFE actually fine? (misconception buster) ──────────
-\begin{frame}{First, the Honest Part: When \emph{Is} TWFE Fine?}
+\begin{frame}{When Is TWFE Fine?}
 
   TWFE estimates a \alert{weighted sum} of the cell effects $\Delta_{g,t}$
   (cohort $g$, period $t$); the weights sum to one but \alert{can be negative}.
@@ -101,10 +101,10 @@
   \medskip
   \begin{columns}[T]
     \begin{column}{0.5\textwidth}
-      \begin{block}{Two routes to safety}
+      \begin{block}{Two cases where TWFE is fine}
         \begin{itemize}
           \item \textbf{Homogeneous effects.} If $\Delta_{g,t}$ is the same in
-            every cell, the weighted sum equals it \emph{exactly} --- in
+            every cell, the weighted sum equals it \emph{exactly}, in
             \emph{any} design.
           \item \textbf{Clean design.} Binary treatment, one adoption date,
             nobody treated before it: every treated cell gets the \alert{same}
@@ -115,11 +115,11 @@
     \begin{column}{0.5\textwidth}
       \begin{alertblock}{Bias, and sign reversal}
         \begin{itemize}
-          \item \textbf{Bias}: effects that \textbf{vary} (by cohort or over
-            time), \textbf{correlated with the TWFE weights}.
-          \item A \textbf{sign flip} also needs \textbf{negative weights},
-            possible with \textbf{staggered} timing, \textbf{on/off} switching
-            or \textbf{non-binary} treatment.
+          \item \textbf{Bias}: effects that vary (by cohort or over
+            time), correlated with the TWFE weights.
+          \item A \textbf{sign flip} also needs negative weights,
+            possible with staggered timing, on/off switching
+            or non-binary treatment.
         \end{itemize}
         Then a positive effect can enter with a negative weight, and
         $\hat\beta$ shrinks or flips sign.
@@ -135,7 +135,7 @@
 \end{frame}
 
 % ── Frame 4: TWFE = weighted average of 2x2's ───────────────────────────
-\begin{frame}{What TWFE Really Computes: A Weighted Average of 2$\times$2's}
+\begin{frame}{What TWFE Computes: A Weighted Average of 2$\times$2's}
 
   \textbf{Goodman-Bacon (2021)} proves that with binary, staggered treatment:
   \begin{equation*}
@@ -149,10 +149,9 @@
   dates (before, between and after adoption), not two single dates.
 
   \medskip
-  What matters is which comparisons enter that average. Some are clean. One
-  compares a newly-treated group to a group \emph{that is already treated} ---
-  and \emph{when effects change over time}, that comparison is what biases
-  $\hat\beta$.
+  Some of these comparisons are clean. One compares a newly-treated group to a
+  group \emph{that is already treated}; \emph{when effects change over time},
+  that comparison is what biases $\hat\beta$.
 
 \end{frame}
 
@@ -165,15 +164,15 @@
     \end{column}
     \begin{column}{0.36\textwidth}
       \footnotesize
-      \textbf{A, B} --- early/late treated vs.\ \emph{never-treated}.
+      \textbf{A, B}: early/late treated vs.\ \emph{never-treated}.
       \textcolor{MidBlue}{Clean controls.}
 
       \medskip
-      \textbf{C} --- early vs.\ late, \emph{before} the late group is treated.
+      \textbf{C}: early vs.\ late, \emph{before} the late group is treated.
       The late group is still untreated, so \textcolor{MidBlue}{also a clean control.}
 
       \medskip
-      \textbf{D} --- late vs.\ early, \emph{after} the early group is treated.
+      \textbf{D}: late vs.\ early, \emph{after} the early group is treated.
       Now the ``control'' \alert{already has the treatment}.
       \alert{This is the forbidden comparison.}
     \end{column}
@@ -186,16 +185,16 @@
 \end{frame}
 
 % ── Frame 6: The forbidden comparison in plain English → Block 1 ─────────
-\begin{frame}{Failure \#1: The Forbidden Comparison \hfill {\small$\rightarrow$ Block 1}}
+\begin{frame}{Failure \#1: Already-Treated Units as Controls \hfill {\small$\rightarrow$ Block 1}}
 
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}
-      Think of a reform rolled out in waves --- say no-fault divorce laws,
-      adopted by early states and, years later, by late states.
+      Think of a reform rolled out in waves (for instance, no-fault divorce
+      laws), adopted by early states and, years later, by late states.
 
       \medskip
       To estimate the \emph{late} states' effect, TWFE needs a control for them.
-      Panel~D used the \alert{early states} --- but by then they have had
+      Panel~D used the \alert{early states}, but by then they have had
       the law for years. Their outcome \alert{already reflects the treatment}.
 
       \medskip
@@ -205,15 +204,14 @@
     \end{column}
     \begin{column}{0.42\textwidth}
       \begin{alertblock}{Consequence}
-        The late effect looks too small --- or flips negative.
-        Not because the law hurt anyone, but because the control was
-        \alert{contaminated by its own treatment}.
+        The late effect looks too small or flips negative, even if the law
+        hurt no one: the control was \alert{contaminated by its own treatment}.
       \end{alertblock}
 
       \medskip
       \textbf{The fix (Block 1):} never use an already-treated unit as a control.
-      Build clean \alert{cohort-by-cohort} comparisons --- the
-      \textbf{Callaway \& Sant'Anna} idea.
+      Build clean \alert{cohort-by-cohort} comparisons (the
+      \textbf{Callaway \& Sant'Anna} idea).
     \end{column}
   \end{columns}
 
@@ -229,24 +227,24 @@
   \]
 
   The treated unit enters with a \alert{positive} weight; the control enters
-  \emph{subtracting} --- an effective \alert{negative} weight. Normally this is fine:
+  \emph{subtracting}, which is an effective \alert{negative} weight. Normally this is fine:
   the control is \emph{untreated}, so the negative weight sits on an untreated unit.
 
   \medskip
-  \begin{alertblock}{The staggered twist}
+  \begin{alertblock}{Staggered timing}
     With staggered timing, TWFE uses an \alert{already-treated} unit as the control
     for a later one:
     \[
       \text{ATT} = \sum \Big( w_{+}\,Y_{\text{later},\,t}
         \;-\; w_{-}\,Y_{\text{earlier-treated},\,t}\Big).
     \]
-    Now the negative weight sits on a \alert{treated} unit --- whose own effect
+    Now the negative weight sits on a \alert{treated} unit, whose own effect
     should count \emph{positively}.
   \end{alertblock}
 
   \medskip
-  That misplaced sign is the whole story: TWFE puts negative weight on some
-  \emph{treated} units, because it presses them into service as controls.
+  Therefore TWFE puts negative weight on some \emph{treated} units, because it
+  uses them as controls.
 
 \end{frame}
 
@@ -288,13 +286,13 @@
 
   \medskip
   Binary staggered designs are exposed; continuous and switching ones more so.
-  \textbf{The fix: controls still at the unit's baseline treatment (binary:
-  never already-treated).}
+  \textbf{The fix:} controls still at the unit's baseline treatment (binary:
+  never already-treated).
 
 \end{frame}
 
 % ── Frame 8: Heterogeneity in who responds (urban/rural) ────────────────
-\begin{frame}{It Is Not Only Timing: \emph{Who} Responds}
+\begin{frame}{Heterogeneity Across Subgroups: Who Responds}
 
   With one common date and only unit and period FE, TWFE is the 2$\times$2 DiD and
   returns the ATT: every treated unit counts equally. Add urban/rural-by-period FE
@@ -322,7 +320,7 @@
   \end{columns}
 
   \medskip
-  No sign reversal here --- all weights are positive. But the estimate is a
+  All weights are positive, so there is no sign reversal here. But the estimate is a
   \alert{variance-weighted ATT}, not the simple average effect. The
   subgroup-by-period FE create these weights; a time-invariant urban dummy is
   absorbed by the unit FE and changes nothing.
@@ -330,7 +328,7 @@
 \end{frame}
 
 % ── Frame 10: The pre-trend trap ────────────────────────────────────────
-\begin{frame}{And You Cannot Even Diagnose It: The Pre-Trend Trap}
+\begin{frame}{Pre-Trend Tests Under Staggered Adoption}
 
   You run an event-study plot. Pre-treatment coefficients look flat.
   You conclude ``parallel trends holds, TWFE is valid.''
@@ -340,7 +338,7 @@
     In a staggered TWFE event study, each pre-period coefficient
     mixes in \alert{cohorts' effects from other relative periods}, which cancel
     only if effects are homogeneous across cohorts (Sun \& Abraham, 2021). The pre-trend can look flat when parallel trends is
-    violated --- and non-flat when it holds.
+    violated, and non-flat when it holds.
   \end{alertblock}
 
   \medskip
@@ -351,7 +349,7 @@
 
   \medskip
   Under staggered adoption the TWFE event study is unreliable \emph{in both
-  directions} --- so the usual ``check'' gives false comfort. Blocks 1 and 2 give
+  directions}, so the usual ``check'' gives false comfort. Blocks 1 and 2 give
   event studies free of this contamination; a flat pre-trend there still does not
   prove parallel trends (pre-tests have low power).
 
@@ -360,20 +358,20 @@
 % ── Frame 11: The few-treated-units problem → Block 3 ───────────────────
 \begin{frame}{Failure \#3: Too Few Treated Units \hfill {\small$\rightarrow$ Block 3}}
 
-  Sometimes the problem is not the estimator --- it is that you have
-  \alert{one treated unit} (or just a handful): a single country, a single state,
-  one reform.
+  Sometimes the problem lies in the data rather than the estimator: you have
+  \alert{one treated unit} (or just a handful), such as a single country, a
+  single state or one reform.
 
   \medskip
   \begin{columns}[T]
     \begin{column}{0.55\textwidth}
       With $N_{\text{treated}}=1$:
       \begin{itemize}
-        \item Often no single untreated unit is a \alert{good comparison} ---
+        \item Often no single untreated unit is a \alert{good comparison}:
           why this neighbour and not that one?
         \item Parallel trends against the donor average often \alert{fails
           before treatment} (Abadie, 2021, Fig.~1A)
-        \item Cluster / asymptotic inference \alert{breaks} --- you cannot
+        \item Cluster / asymptotic inference \alert{breaks}: you cannot
           appeal to ``many treated clusters''
       \end{itemize}
     \end{column}
@@ -392,15 +390,15 @@
 \end{frame}
 
 % ── Frame 12: What broke — two traditions ───────────────────────────────
-\begin{frame}{What Broke, in One View}
+\begin{frame}{Three Failures of TWFE and Where They Are Fixed}
 
   \begin{enumerate}
     \setlength{\itemsep}{8pt}
-    \item \textbf{Wrong control} --- staggering makes TWFE use already-treated
-      units as controls. \hfill \alert{$\rightarrow$ Block 1}
-    \item \textbf{Wrong sign / wrong weights} --- heterogeneous and dynamic effects
+    \item \textbf{Wrong control}: staggering makes TWFE use already-treated
+      units as controls. \hfill\null\nobreak\hfill \mbox{\alert{$\rightarrow$ Block~1}}
+    \item \textbf{Wrong sign / wrong weights}: heterogeneous and dynamic effects
       get mechanical, sometimes negative, weights. \hfill \alert{$\rightarrow$ Block 2}
-    \item \textbf{Too few treated units} --- no single good control, parallel
+    \item \textbf{Too few treated units}: no single good control, parallel
       trends often fails pre-treatment, no sampling-based inference. \hfill \alert{$\rightarrow$ Block 3}
   \end{enumerate}
 

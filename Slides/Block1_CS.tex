@@ -5,7 +5,7 @@
 \section{Callaway \& Sant'Anna (2021)}
 
 % ── A1: Bridge from Block 0 ─────────────────────────────────────────────
-\begin{frame}{Where We Left Off: The TWFE Problem}
+\begin{frame}{Recap of Block 0: The TWFE Problem}
 
   \textbf{Block 0 showed:} TWFE with staggered adoption is a weighted
   average of all possible 2$\times$2 DiDs, and the weights on those
@@ -13,7 +13,7 @@
 
   \medskip
   (Block 2 revisits the same designs through dCH's cell-level weights, where
-  some already-treated cells get \alert{negative} weight --- the central issue
+  some already-treated cells get \alert{negative} weight: the central issue
   once treatment is non-binary or non-absorbing.)
 
   \medskip
@@ -37,7 +37,7 @@
 \end{frame}
 
 % ── A2: The key object — ATT(g,t) ───────────────────────────────────────
-\begin{frame}{The Key Idea: Think in Cohorts}
+\begin{frame}{One ATT per Cohort and Calendar Year}
 
   \textbf{Instead of one $\hat{\beta}$, estimate one ATT per
   (cohort, calendar year) cell.}
@@ -64,7 +64,7 @@
       averaged only over units in that cohort.
     \end{column}
     \begin{column}{0.46\textwidth}
-      \textbf{A grid, not a single number:}
+      \textbf{The result is a grid:}
       \begin{itemize}
         \item One ATT$(g,t)$ per (cohort, period) cell, $t \ge 2$
           $\Rightarrow$ a $G \times (T{-}1)$ grid
@@ -85,7 +85,7 @@
 \end{frame}
 
 % ── A2b: The ATT(g,t) grid, concretely ──────────────────────────────────
-\begin{frame}{The ATT$(g,t)$ Grid, Made Concrete}
+\begin{frame}{Example: An ATT$(g,t)$ Grid with Three Cohorts}
 
   \textbf{Each box is one cell $\text{ATT}(g,t)$:} row $=$ cohort (year first
   treated), column $=$ calendar year. Three cohorts plus a never-treated group:
@@ -145,7 +145,7 @@
   \bigskip
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
-      \textbf{Why this matters:}
+      \textbf{What it implies:}
       \begin{itemize}
         \item Each unit belongs to exactly one cohort
         \item Pre-treatment periods of a cohort are clean
@@ -185,7 +185,7 @@
   \smallskip
   \textit{Identification uses the \textbf{long difference} relative to
   $g{-}1$ (the cohort's last pre-treatment year), not period-by-period
-  first differences --- so $g{-}1$ is the natural baseline (relative
+  first differences, so $g{-}1$ is the natural baseline (relative
   time $e=-1$).}
 
   \medskip
@@ -199,7 +199,7 @@
   across groups.
 
   \medskip
-  \begin{alertblock}{Why this matters}
+  \begin{alertblock}{Conditional PT and the estimator}
     The conditional version is what motivates the doubly-robust estimator.
   \end{alertblock}
 
@@ -233,7 +233,7 @@
 
   \bigskip
   \textbf{What is \emph{excluded} in both cases:}
-  already-treated units --- the source of TWFE bias.
+  already-treated units (the source of TWFE bias).
 
 \end{frame}
 
@@ -254,11 +254,11 @@
   \medskip
   \begin{alertblock}{Why doubly robust?}
     Consistent if \emph{either} the propensity-score model \emph{or} the
-    outcome regression is correctly specified --- not necessarily both.
+    outcome regression is correctly specified, not necessarily both.
   \end{alertblock}
 
   \medskip
-  \textbf{In practice:} the doubly-robust estimator is the default ---
+  \textbf{In practice:} the doubly-robust estimator is the default
   and the authors' recommendation.
 
   \smallskip
@@ -295,9 +295,8 @@
   \end{tabular}
 
   \bigskip
-  \textbf{Key:} all four are weighted averages of the same
-  ATT$(g,t)$ grid --- they answer different questions, not
-  different models.
+  All four are weighted averages of the same ATT$(g,t)$ grid:
+  they come from one estimated model and answer different questions.
 
 \end{frame}
 
@@ -324,7 +323,7 @@
   \medskip
   \begin{alertblock}{Two ways to weight the ``overall'' effect}
     $\theta_O^{\,sel}$ averages \emph{within} groups first, then across
-    groups --- the authors' preferred summary.
+    groups (the authors' preferred summary).
     $\theta_O^{\,W}$ weights every post-treatment cell by group size,
     putting more weight on early-treated groups.
     In general they differ; they coincide when every cohort has the same
@@ -340,8 +339,8 @@
     \item[Question] How does the effect evolve with exposure length $e = t-g$?
     \item[Averages] the cells $\text{ATT}(g,g{+}e)$ at horizon $e$, weighted by
       cohort size. $e{=}0$ is the on-impact effect; $e{<}0$ is pre-treatment.
-    \item[Use it] the headline plot --- trace whether effects build, fade, or persist.
-    \item[\color{AlertRed}Gotcha] the $e{<}0$ points are \emph{not} effects: they
+    \item[Use it] the headline plot: it traces whether effects build, fade, or persist.
+    \item[\color{AlertRed}Caveat] the $e{<}0$ points are \emph{not} effects: they
       are the parallel-trends check and should sit near $0$. Read the whole path,
       not a single horizon.
   \end{description}
@@ -352,7 +351,7 @@
 \begin{frame}{The Event Study Plot}
 
   \textbf{Most useful output from C\&S:} the dynamic aggregation
-  $\theta_{\mathit{es}}(e)$ --- the average effect $e$ periods after first
+  $\theta_{\mathit{es}}(e)$, the average effect $e$ periods after first
   treatment.
 
   \medskip
@@ -387,15 +386,15 @@
 
       \vspace{0.5cm}
       \footnotesize
-      \textbf{Confidence intervals:} use \textbf{simultaneous} (joint)
-      bands --- wider than pointwise, correct for reading the whole
+      \textbf{Confidence intervals:} use simultaneous (joint)
+      bands: wider than pointwise, correct for reading the whole
       pre-trend path as one joint test.
     \end{column}
     \begin{column}{0.44\textwidth}
       \small
       \textbf{Reading the plot:}
       \begin{itemize}
-        \item $e < 0$: pre-treatment. Should be $\approx 0$ --- an
+        \item $e < 0$: pre-treatment. Should be $\approx 0$: an
           honest pre-trends check (but low power, and conditioning on
           passing it distorts inference, Roth 2022).
         \item $e \geq 0$: post-treatment effects. Slope shows
@@ -416,12 +415,12 @@
     \item[Question] What was the average effect for the cohort first treated at $g$,
       over its post-treatment life?
     \item[Averages] $\text{ATT}(g,t)$ for $t \ge g$, with \emph{equal} weight
-      $1/(T{-}g{+}1)$ --- a single cohort, so no group-size weighting.
+      $1/(T{-}g{+}1)$ (a single cohort, so no group-size weighting).
     \item[Use it] compare \textbf{early vs.\ late adopters}: is the effect larger
       for those treated sooner?
-    \item[\color{AlertRed}Gotcha] later cohorts have fewer post-periods, so their
-      average covers a \emph{shorter} horizon --- not a like-for-like comparison
-      with early cohorts.
+    \item[\color{AlertRed}Caveat] later cohorts have fewer post-periods, so their
+      average covers a \emph{shorter} horizon and the comparison with early
+      cohorts is not like-for-like.
   \end{description}
 
 \end{frame}
@@ -433,9 +432,9 @@
       everyone treated by then?
     \item[Averages] $\text{ATT}(g,t)$ over cohorts with $g \le t$, weighted by
       cohort size $P(G{=}g \mid G \le t)$.
-    \item[Use it] when a specific \textbf{period} matters --- a recession, a
-      national shock --- and you want the effect in \emph{that} year.
-    \item[\color{AlertRed}Gotcha] a later year is not ``longer exposure'': it has
+    \item[Use it] when a specific \textbf{period} matters (a recession, a
+      national shock) and you want the effect in \emph{that} year.
+    \item[\color{AlertRed}Caveat] a later year is not ``longer exposure'': it has
       \emph{more} cohorts treated. Moving across $t$ changes who is included, not
       just the dynamics.
   \end{description}
@@ -447,10 +446,10 @@
   \begin{description}[Averages]
     \item[Question] One headline number for the abstract or a summary table.
     \item[Averages] each cohort's own average $\theta_{sel}(g)$ first, then across
-      cohorts weighted by size $P(G{=}g \mid G \le T)$ --- the 2$\times$2 ATT analog.
-    \item[Use it] the scalar to report \emph{alongside} --- never instead of ---
-      the event study.
-    \item[\color{AlertRed}Gotcha] it hides all dynamics and cohort heterogeneity:
+      cohorts weighted by size $P(G{=}g \mid G \le T)$; it is the analog of the 2$\times$2 ATT.
+    \item[Use it] the scalar to report \emph{alongside} the event study, never
+      instead of it.
+    \item[\color{AlertRed}Caveat] it hides all dynamics and cohort heterogeneity:
       a single $-0.03$ can mask effects that grow, fade, or differ sharply by cohort.
   \end{description}
 
@@ -544,22 +543,19 @@
 % ── Demo overview ────────────────────────────────────────────────────────
 \begin{frame}{Applied Case: Real Data, Reproducible Stata}
 
-  \textbf{One estimator, the full C\&S workflow on real data.}
-
-  \bigskip
   \begin{block}{Minimum wage and teen employment (Callaway \& Sant'Anna 2021)}
-    \textbf{Data:} \texttt{mpdta} --- 500 US counties $\times$ 2003--2007\\
+    \textbf{Data:} \texttt{mpdta} (500 US counties $\times$ 2003--2007)\\
     \textbf{Outcome:} log teen employment (\texttt{lemp})\\
     \textbf{Treatment:} state minimum-wage increase; 3 cohorts
     (2004, 2006, 2007) + never-treated\\[4pt]
     \textbf{Why C\&S:} staggered timing across cohorts, with effects that may
-    differ by cohort and grow with exposure --- exactly where TWFE's
-    forbidden comparisons bite.
+    differ by cohort and grow with exposure, the case in which TWFE's
+    already-treated controls bias the estimate.
   \end{block}
 
   \bigskip
   \textbf{Roadmap:} estimate the ATT$(g,t)$ grid, then read it through each
-  aggregation --- event study $\theta_{es}(e)$, by cohort $\theta_{sel}(g)$,
+  aggregation: event study $\theta_{es}(e)$, by cohort $\theta_{sel}(g)$,
   by calendar year $\theta_c(t)$, and the overall $\theta_O$.
 
 \end{frame}
@@ -577,10 +573,10 @@
   \medskip
   \textbf{Why C\&S, not TWFE?}
   \begin{itemize}
-    \item State minimum wage laws adopted in different years ---
-      three cohorts: 2004, 2006, 2007
+    \item State minimum wage laws adopted in different years:
+      three cohorts (2004, 2006, 2007)
     \item TWFE uses already-treated counties as controls for
-      later-treated counties --- the forbidden comparison
+      later-treated counties
     \item If employment effects grow with exposure time,
       late cohorts' controls are contaminated by early-cohort
       post-treatment effects
@@ -590,7 +586,7 @@
   \textbf{Data structure:}
   \begin{itemize}
     \item \texttt{mpdta}: 500 counties $\times$ 5 years (2003--2007), 2{,}500 obs
-    \item Outcome: \texttt{lemp} --- log teen employment per county
+    \item Outcome: \texttt{lemp}, log teen employment per county
     \item Cohort variable: \texttt{first\_treat} $\in \{2004, 2006, 2007, 0\}$
       ($0$ = never treated)
   \end{itemize}
@@ -666,11 +662,11 @@ xtreg lemp treat_post i.year, fe vce(cluster county_id) /* -0.037* */
 
       \medskip
       \textbf{Overall ($\theta_O^{sel}$):} $-0.030$ (SE 0.012,
-      sig at 5\%) --- a $\sim$3\% employment drop.
+      sig at 5\%), a $\sim$3\% employment drop.
 
       \medskip
-      \alert{vs.\ static TWFE:} $-0.037$ (sig) on \texttt{mpdta}
-      --- close here. The larger gap (TWFE $-0.8\%$ ns vs DR
+      \alert{vs.\ static TWFE:} $-0.037$ (sig) on \texttt{mpdta},
+      close here. The larger gap (TWFE $-0.8\%$ ns vs DR
       with covariates $-3.1\%$) is in the paper's full sample
       (C\&S 2021, Table 3b).
     \end{column}
@@ -716,25 +712,25 @@ graph export "$figdir/mpdta_group.png", replace width(1200)
     \end{column}
     \begin{column}{0.42\textwidth}
       \small
-      \textbf{Estimand: $\theta_{sel}(g)$} --- average effect for each
+      \textbf{Estimand: $\theta_{sel}(g)$}, the average effect for each
       cohort over its post-treatment years;
       GAverage $=\theta_O^{sel}=-0.030$.
 
       \medskip
       \textbf{Cohort 2004:} ATT $\approx -0.08$
-      (significant) --- the largest effect.
+      (significant), the largest effect.
       Early adopters faced higher minimum wages
       for more years within the sample window.
 
       \medskip
       \textbf{Cohorts 2006, 2007:} small and
-      not significant --- less post-treatment
-      exposure.
+      not significant (less post-treatment
+      exposure).
 
       \medskip
-      \alert{Key lesson:} heterogeneity across cohorts
-      is real. Pooling them into a single TWFE
-      $\hat\beta$ hides it and can bias it: TWFE
+      \alert{For TWFE:} one pooled $\hat\beta$
+      hides this heterogeneity and can be
+      biased: TWFE
       subtracts the growth in cohort 2004's
       effect when 2004 controls for later ones.
     \end{column}
@@ -780,7 +776,7 @@ graph export "$figdir/mpdta_calendar.png", replace width(1200)
     \end{column}
     \begin{column}{0.42\textwidth}
       \small
-      \textbf{Estimand: $\theta_c(t)$} --- average effect across cohorts
+      \textbf{Estimand: $\theta_c(t)$}, the average effect across cohorts
       already treated by calendar year $t$ (CAverage $=-0.044$).
 
       \medskip
@@ -794,7 +790,7 @@ graph export "$figdir/mpdta_calendar.png", replace width(1200)
 
       \medskip
       \textbf{Use it} to ask: ``what was the average effect across all
-      treated units in year $t$?'' --- aggregate policy impact in a
+      treated units in year $t$?'', that is, the aggregate policy impact in a
       given year.
     \end{column}
   \end{columns}
@@ -825,7 +821,7 @@ graph export "$figdir/mpdta_calendar.png", replace width(1200)
     \item \textbf{Plot the event study:} pre-periods near zero? Not
       proof of PT: report HonestDiD $\bar M$.
     \item \textbf{Check cohort-specific effects:} is there heterogeneity
-      across cohorts? If yes, report it --- do not just report
+      across cohorts? If yes, report it, not just
       the overall ATT.
     \item \textbf{Compare to TWFE:} they can be close, but
       \alert{report C\&S either way}.
